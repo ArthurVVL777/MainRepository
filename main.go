@@ -23,13 +23,13 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 	task = request.Message
 	fmt.Fprintf(w, "Task received", task)
 }
-func HelloHandler(w http.ResponseWriter, r *http.Request) {
+func GetHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, task)
 }
 
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/api/post", PostHandler).Methods("POST")
-	router.HandleFunc("/api/hello", HelloHandler).Methods("GET")
+	router.HandleFunc("/api/hello", GetHandler).Methods("GET")
 	http.ListenAndServe(":8080", router)
 }
