@@ -9,18 +9,18 @@ import (
 
 var task string
 
-type TaskRequest struct {
-	Task string `json:"task"`
+type requestBody struct {
+	Message string `json:"message"`
 }
 
 func PostHandler(w http.ResponseWriter, r *http.Request) {
-	var request TaskRequest
+	var request requestBody
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		http.Error(w, "Invalid request", http.StatusBadRequest)
 		return
 	}
-	task = request.Task
+	task = request.Message
 	fmt.Fprintf(w, "Task received", task)
 }
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
