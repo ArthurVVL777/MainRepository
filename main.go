@@ -9,27 +9,23 @@ import (
 
 var task string
 
-type requestBody struct {
-	Message string `json:"message"`
+func GetHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello, %s!", task)
 }
-
 func PostHandler(w http.ResponseWriter, r *http.Request) {
-	var request requestBody
-	err := json.NewDecoder(r.Body).Decode(&request)
-	if err != nil {
-		http.Error(w, "Invalid request", http.StatusBadRequest)
+	var data struct {
+		Task string `json:"task"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	task = request.Message
-	fmt.Fprintf(w, "Task received", task)
+	task = data.Task
+	w.WriteHeader(http.StatusOK)
 }
-func GetHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, task)
-}
-
 func main() {
 	router := mux.NewRouter()
+	router.HandleFunc("/api/get", GetHandler).Methods("GET")
 	router.HandleFunc("/api/post", PostHandler).Methods("POST")
-	router.HandleFunc("/api/hello", GetHandler).Methods("GET")
 	http.ListenAndServe(":8080", router)
 }
