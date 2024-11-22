@@ -42,7 +42,7 @@ func (h *Handler) PostTaskHandler(c echo.Context) error {
 
 func (h *Handler) UpdateHandler(c echo.Context) error {
 	idStr := c.Param("id")
-	id, err := strconv.ParseUint(idStr, 10, 32) // Исправлено: преобразование ID из строки в uint
+	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid ID"})
 	}
@@ -62,7 +62,7 @@ func (h *Handler) UpdateHandler(c echo.Context) error {
 
 func (h *Handler) PatchHandler(c echo.Context) error {
 	idStr := c.Param("id")
-	id, err := strconv.ParseUint(idStr, 10, 32) // Исправлено: преобразование ID из строки в uint
+	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid ID"})
 	}
@@ -82,7 +82,7 @@ func (h *Handler) PatchHandler(c echo.Context) error {
 
 func (h *Handler) DeleteHandler(c echo.Context) error {
 	idStr := c.Param("id")
-	id, err := strconv.ParseUint(idStr, 10, 32) // Исправлено: преобразование ID из строки в uint
+	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid ID"})
 	}

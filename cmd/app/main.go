@@ -23,8 +23,8 @@ func main() {
 	e := echo.New() // Инициализируем новый экземпляр Echo для обработки HTTP-запросов.
 
 	// Определение маршрутов
-	e.GET("/api/get", handler.GetTasksHandler)   // Определяем маршрут GET для получения всех задач.
-	e.POST("/api/post", handler.PostTaskHandler) // Определяем маршрут POST для создания новой задачи.
+	e.GET("/api/get", handler.GetTasksHandler)
+	e.POST("/api/post", handler.PostTaskHandler)
 	e.PUT("/api/put/:id", handler.UpdateHandler)
 	e.PATCH("api/patch/:id", handler.PatchHandler)
 	e.DELETE("/api/delete/:id", handler.DeleteHandler)
