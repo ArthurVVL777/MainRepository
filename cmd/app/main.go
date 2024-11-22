@@ -25,7 +25,9 @@ func main() {
 	// Определение маршрутов
 	e.GET("/api/get", handler.GetTasksHandler)   // Определяем маршрут GET для получения всех задач.
 	e.POST("/api/post", handler.PostTaskHandler) // Определяем маршрут POST для создания новой задачи.
-
+	e.PUT("/api/put/:id", handler.UpdateHandler)
+	e.PATCH("api/patch/:id", handler.PatchHandler)
+	e.DELETE("/api/delete/:id", handler.DeleteHandler)
 	// Запуск сервера на порту 8080
 	e.Logger.Fatal(e.Start(":8080")) // Запускаем сервер на порту 8080 и логируем ошибки, если они возникнут.
 }
