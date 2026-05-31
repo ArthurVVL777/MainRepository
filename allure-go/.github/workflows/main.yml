@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+  workflow_dispatch:
+
+jobs:
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.17.8"
+      - name: allure-golangci-lint
+        run: cd ./pkg/allure && make lint
+      - name: provider-golangci-lint
+        run: cd ./pkg/framework && make lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: allure-test
+        run: cd ./pkg/allure && make test
+      - name: provider-test
+        run: cd ./pkg/framework && make test
+
+  examples:
+    name: examples
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run examples
+        run: make examples
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: ./examples/allure-results
